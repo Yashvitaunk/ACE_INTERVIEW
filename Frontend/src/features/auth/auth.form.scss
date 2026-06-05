@@ -1,0 +1,308 @@
+main {
+  min-height: 100vh;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background:
+    radial-gradient(circle at top left,
+      rgba(225, 3, 77, 0.25),
+      transparent 35%),
+    radial-gradient(circle at bottom right,
+      rgba(225, 3, 77, 0.20),
+      transparent 35%),
+    #09090f;
+
+  position: relative;
+  overflow: hidden;
+}
+/* Background Glow */
+// main::before {
+//   content: "";
+
+//   position: absolute;
+
+//   width: 700px;
+//   height: 700px;
+
+//   top: -250px;
+//   left: -250px;
+
+//   background: radial-gradient(
+//     circle,
+//     rgba(225, 3, 77, 0.35) 0%,
+//     rgba(225, 3, 77, 0.15) 35%,
+//     transparent 70%
+//   );
+
+//   filter: blur(80px);
+// }
+
+// main::after {
+//   content: "";
+
+//   position: absolute;
+
+//   width: 600px;
+//   height: 600px;
+
+//   bottom: -250px;
+//   right: -250px;
+
+//   background: radial-gradient(
+//     circle,
+//     rgba(225, 3, 77, 0.25) 0%,
+//     rgba(225, 3, 77, 0.1) 40%,
+//     transparent 70%
+//   );
+
+//   filter: blur(80px);
+// }
+
+/* Brand Section */
+
+.brand-section {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  z-index: 2;
+
+  transform: translateY(-20px);
+}
+
+// .brand-logo {
+//   width: 55px;
+//   height: 55px;
+
+//   margin: 0 auto 0.4rem;
+
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+
+//   font-size: 1.4rem;
+
+//   color: white;
+
+//   border-radius: 20px;
+
+//   background: linear-gradient(
+//     135deg,
+//     #e1034d,
+//     #ff4d88
+//   );
+
+//   box-shadow: 0 0 30px rgba(225, 3, 77, 0.4);
+// }
+
+.brand-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+
+  color: white;
+}
+
+.brand-title span {
+  color: #e1034d;
+}
+
+.brand-subtitle {
+  color: #b6b6b6;
+  margin-top: 0.5rem;
+}
+
+/* Login Card */
+
+.auth-form-container {
+  width: 400px;
+   transform: translateY(-20px);
+  min-width: 400px;
+
+  background: rgba(255, 255, 255, 0.05);
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  backdrop-filter: blur(20px);
+
+  border-radius: 24px;
+
+  padding: 2rem;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 1rem;
+
+  z-index: 2;
+
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+}
+
+.auth-form-container h2 {
+  text-align: center;
+  color: white;
+  margin: 0;
+}
+
+.welcome-text {
+  text-align: center;
+  color: #b6b6b6;
+  margin-bottom: 0.5rem;
+}
+
+/* Form */
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.input-group label {
+  color: white;
+  font-weight: 500;
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.input-icon {
+  position: absolute;
+
+  left: 16px;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  color: #999;
+  font-size: 1.1rem;
+}
+
+input {
+  width: 100%;
+  box-sizing: border-box;
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  background: rgba(255, 255, 255, 0.06);
+
+  color: white;
+
+  outline: none;
+
+  padding: 0.9rem 1rem 0.9rem 3rem;
+
+  border-radius: 14px;
+
+  transition: 0.3s;
+}
+
+input::placeholder {
+  color: #999;
+}
+
+input:focus {
+  border-color: #e1034d;
+
+  box-shadow: 0 0 0 3px
+    rgba(225, 3, 77, 0.15);
+}
+
+.password-toggle {
+  position: absolute;
+
+  right: 15px;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  border: none;
+  background: transparent;
+
+  color: #999;
+
+  cursor: pointer;
+
+  font-size: 1.1rem;
+}
+
+/* Button */
+
+.button-primary_button {
+  width: 100%;
+
+  border: none;
+  outline: none;
+
+  padding: 0.9rem;
+
+  border-radius: 14px;
+
+  cursor: pointer;
+
+  margin-top: 0.5rem;
+
+  font-weight: 600;
+  font-size: 1rem;
+
+  color: white;
+
+  background: linear-gradient(
+    135deg,
+    #e1034d,
+    #ff2768
+  );
+
+  transition: 0.3s;
+}
+
+.button-primary_button:hover {
+  transform: translateY(-2px);
+
+  box-shadow: 0 10px 25px
+    rgba(225, 3, 77, 0.35);
+}
+
+/* Footer */
+
+.auth-footer,
+.auth-form-container p {
+  text-align: center;
+  color: #d0d0d0;
+}
+
+a {
+  color: #e1034d;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+a:hover {
+  color: #ff4d88;
+}
+
+/* Mobile */
+
+@media (max-width: 500px) {
+  .auth-form-container {
+    width: 100%;
+    min-width: auto;
+  }
+
+  .brand-title {
+    font-size: 2rem;
+  }
+
+  .brand-subtitle {
+    font-size: 0.9rem;
+  }
+}
