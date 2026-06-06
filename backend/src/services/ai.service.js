@@ -6,7 +6,11 @@ const { zodToJsonSchema } = require("zod-to-json-schema");
 const ai = new GoogleGenAI({
   apiKey: process.env.GOOGLE_GENAI_API_KEY
 });
-
+ const resumePdfSchema = z.object({
+  html: z.string().describe(
+    "Complete HTML content of the resume that can be converted to PDF"
+  )
+});
 async function invokeGeminiAi() {
   try {
     const response = await ai.models.generateContent({
@@ -20,6 +24,7 @@ async function invokeGeminiAi() {
     console.error(error);
   }
 }
+
 
 async function generateInterviewReport({
   jobDescription,
