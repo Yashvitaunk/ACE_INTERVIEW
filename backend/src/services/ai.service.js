@@ -197,38 +197,15 @@ try {
   }
 }
 
-async function generatePdfFromHtml(htmlContent) {
-
-  const browser = await puppeteer.launch();
-
-  const page = await browser.newPage();
-
-  await page.setContent(htmlContent, {
-    waitUntil: "networkidle0"
-  });
-
-  const pdfBuffer = await page.pdf({
-    format: "A4"
-  });
-
-  await browser.close();
-
-  return pdfBuffer;
-}
-
-const resumePdfSchema = z.object({
-  html: z.string().describe(
-    "Complete HTML content of the resume that can be converted to PDF"
-  )
-});
-
- async function generateResumePdf({
+async function generateResumePdf({
   resume,
   selfDescription,
   jobDescription
 }) {
 
- const prompt = `
+  try {
+
+    const prompt = `
 Create a complete professional ATS-friendly resume.
 Keep the resume compact.
 Minimize vertical spacing.
@@ -273,6 +250,11 @@ Layout Requirements:
 CSS Requirements:
 - Use page-break-inside: avoid for sections
 - Use break-inside: avoid where appropriate
+Return ONLY JSON.
+
+{
+  "html": "<complete HTML document>"
+}
 
 Resume:
 ${resume}
@@ -284,36 +266,46 @@ Job Description:
 ${jobDescription}
 `;
 
-  const response = await ai.models.generateContent({
-    model: "gemini-2.5-flash",
-    contents: prompt,
-    config: {
-      responseMimeType: "application/json",
-      responseSchema: zodToJsonSchema(resumePdfSchema)
+    const response = await ai.models.generateContent({
+      model: "gemini-2.5-flash",
+      contents: prompt,
+      config: {
+        responseMimeType: "application/json",
+        responseSchema: zodToJsonSchema(resumePdfSchema)
+      }
+    });
+
+    console.log("===== GEMINI PDF RESPONSE =====");
+    console.log(response.text);
+
+    const jsonContent = JSON.parse(response.text);
+
+    console.log("===== PARSED JSON =====");
+    console.log(jsonContent);
+
+    if (!jsonContent.html) {
+      throw new Error(
+        `Gemini did not return html field. Response: ${response.text}`
+      );
     }
-  });
 
- const jsonContent = JSON.parse(response.text);
+    console.log("===== HTML GENERATED =====");
 
-if (!jsonContent.html) {
-  throw new Error(
-    `Gemini did not return html field. Response: ${response.text}`
-  );
-}
+    const pdfBuffer = await generatePdfFromHtml(
+      jsonContent.html
+    );
 
-  const pdfBuffer = await generatePdfFromHtml(
-    jsonContent.html
-  );
+    console.log("===== PDF CREATED SUCCESSFULLY =====");
 
-   console.log("===== GEMINI PDF RESPONSE =====");
-console.log(response.text);
+    return pdfBuffer;
 
-console.log("===== PARSED JSON =====");
-console.log(jsonContent);
+  } catch (err) {
 
-console.log("===== HTML CONTENT =====");
-console.log(jsonContent.html);
-  return pdfBuffer;
+    console.error("===== PDF GENERATION ERROR =====");
+    console.error(err);
+
+    throw err;
+  }
 }
 
 
