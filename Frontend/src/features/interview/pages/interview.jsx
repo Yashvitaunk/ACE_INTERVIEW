@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import "../../../style/interview.scss";
 import { useInterview } from "../hooks/useInterview.js";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../auth/hooks/useAuth";
+import { useAuth } from "../../auth/Hooks/useAuth";
 
 const Interview = () => {
   const [activeSection, setActiveSection] = useState("technical");

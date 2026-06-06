@@ -9,7 +9,7 @@ import {
 } from "react-icons/ri";
 
 import "../auth.form.scss";
-import { useAuth } from "../hooks/useAuth";
+import { useAuth } from "../Hooks/useAuth";
 
 const Login = () => {
   const navigate = useNavigate();
