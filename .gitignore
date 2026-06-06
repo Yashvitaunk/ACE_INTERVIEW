@@ -1,2 +1,3 @@
 # Root node modules
 node_modules/
+backend/.env
