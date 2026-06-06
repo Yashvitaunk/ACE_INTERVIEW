@@ -21,7 +21,7 @@ const Register = () => {
     });
 
     if (success) {
-      navigate("/");
+      navigate("/login");
     }
   };
 
