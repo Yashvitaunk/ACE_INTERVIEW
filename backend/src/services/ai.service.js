@@ -277,12 +277,19 @@ Layout Requirements:
 - Maximum 3 bullet points per project
 - Maximum 2 bullet points per experience
 - Avoid unnecessary blank spaces
+- Do not leave large empty spaces before a section
+- If a section does not fit completely, continue it on the next page
+- Do not force entire sections onto a new page
 
 
 CSS Requirements:
-- Use page-break-inside: avoid for sections
-- Use break-inside: avoid where appropriate
-Return ONLY JSON.
+- Do NOT use fixed heights
+- Do NOT use min-height on sections
+- Avoid large margins and padding
+- Use compact spacing between sections
+- Allow sections to flow naturally across pages
+- Use page-break-inside: auto
+- Use break-inside: auto.
 
 {
   "html": "<complete HTML document>"
@@ -298,7 +305,11 @@ Job Description:
 ${jobDescription}
 `;
 
-    const response = await ai.models.generateContent({
+    let response;
+
+for (let i = 0; i < 5; i++) {
+  try {
+    response = await ai.models.generateContent({
       model: "gemini-2.5-flash",
       contents: prompt,
       config: {
@@ -306,6 +317,25 @@ ${jobDescription}
         responseSchema: zodToJsonSchema(resumePdfSchema)
       }
     });
+
+    break;
+
+  } catch (err) {
+
+    if (err.status === 503 && i < 4) {
+
+      console.log(`PDF Retry ${i + 1} after 503`);
+
+      await new Promise(resolve =>
+        setTimeout(resolve, 5000)
+      );
+
+      continue;
+    }
+
+    throw err;
+  }
+}
 
     console.log("===== GEMINI PDF RESPONSE =====");
     console.log(response.text);
